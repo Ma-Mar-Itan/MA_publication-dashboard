@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mahmoud Arayssi — Publications</title>
+<title>Research pipeline — Mahmoud Arayssi</title>
 <meta name="description" content="Research pipeline: papers under submission, co-authors and research themes.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -213,8 +213,8 @@ footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;padding
       </div>
     </nav>
     <div class="hero">
-      <p class="eyebrow" id="updated">Publications dashboard</p>
-      <h1>Mahmoud Arayssi <em>publications</em></h1>
+      <p class="eyebrow" id="updated">Mahmoud Arayssi · Work under submission</p>
+      <h1>Research <em>pipeline</em></h1>
       <p class="lede">Work in progress across ESG and sustainable finance, banking stability, gender and credit, and energy transition in MENA.</p>
     </div>
   </div>
@@ -459,7 +459,7 @@ function renderStatic() {
     (decided ? kpi('Acceptance rate', Math.round(accepted / decided * 100) + '%', `${accepted} accepted of ${decided} decisions`)
              : kpi('Leading theme', themes[0] ? themes[0][0] : '—', themes[0] ? `${themes[0][1]} of ${papers.length} papers` : ''));
   const today = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
-  $('updated').textContent = 'Publications dashboard · ' + today;
+  $('updated').textContent = 'Mahmoud Arayssi · Work under submission · ' + today;
   $('foot').textContent = `${papers.length} papers · ${people.length} co-authors · ${journals.length} journals`;
   renderNetwork(people);
   renderDonut(themes);
