@@ -19,10 +19,17 @@ Edit `papers.csv`, either in GitHub's editor (pencil icon) or by uploading a new
 | `title` | Paper title (keep the quotes if it contains a comma) |
 | `authors` | Surnames separated by `;`, e.g. `Arayssi; Itani; Yassine` |
 | `journal` | Journal name |
+| `submission_id` | Manuscript number from the journal (optional; shown under "Details" with a Copy button) |
 | `theme` | e.g. ESG, Banking, Gender, Energy, Markets, Governance (new themes get a colour automatically) |
-| `status` | `Submitted`, `Under review`, `Revise and resubmit`, `Accepted`, `Rejected` (or `Published`) |
-| `submitted` | Date as `YYYY-MM-DD` (optional; the page shows how many days ago it was) |
+| `status` | `Submitted`, `With editor`, `Under review`, `Revise and resubmit`, `Accepted`, `Rejected`, `Withdrawn`, `Can't confirm` (or `Published`). Add a round like `Under review R1` to show an R1 badge. |
+| `submitted` | Submission date, `DD/MM/YYYY` or `YYYY-MM-DD` (optional) |
+| `last_update` | Date of the latest news from the journal, same formats (optional) |
+| `comments` | Editor's note or decision letter summary (optional; shown under "Editor note") |
 | `link` | URL to the paper or submission page (optional; makes the title clickable) |
+
+Active papers (Submitted, With editor, Under review, Revise and resubmit) with no news for 60 days get a "No news in N days" flag. Change `NUDGE_DAYS` in `index.html` to adjust. `Can't confirm` papers are never flagged and are left out of the acceptance rate.
+
+When saving from Excel, choose **CSV UTF-8** so accents and apostrophes survive (the page can also read the older Windows format).
 
 Once some papers are `Accepted` or `Rejected`, the fourth headline number switches to the acceptance rate.
 

@@ -121,6 +121,36 @@ tbody tr{transition:background .15s}tbody tr:hover{background:#F7F8FB}
 .trow:hover,.trow[aria-pressed="true"]{background:#F3F4F7}
 .trow .nm{flex:1;font-weight:500}.trow .c{color:var(--muted)}
 
+/* Where things stand */
+.outcome{padding:22px 24px;display:flex;flex-direction:column;gap:14px}
+.outcome h2{font-size:clamp(24px,3vw,28px)}
+.obar{display:flex;gap:3px;height:14px;border-radius:999px;overflow:hidden;background:#F0F1F5}
+.obar span{display:block;height:100%;transition:opacity .15s}
+.olegend{display:flex;flex-wrap:wrap;gap:6px}
+.ol{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 12px;border:1px solid var(--field);background:#fff;border-radius:999px;font-size:13px;font-weight:500}
+.ol b{font-weight:600}
+.ol[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.chase{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#8A4A06;background:#FDF1DF;border-radius:999px;padding:6px 12px;border:0;font-weight:500}
+.chase[aria-pressed="true"]{background:#8A4A06;color:#fff}
+
+/* Paper extras */
+.sort{height:44px;border:1px solid var(--field);border-radius:12px;padding:0 12px;font:inherit;font-size:14px;background:#fff;color:var(--ink2)}
+.flag{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:500;color:#8A4A06;background:#FDF1DF;border-radius:6px;padding:3px 8px;white-space:nowrap}
+.more{display:inline-flex;align-items:center;gap:5px;border:0;background:transparent;padding:6px 8px;margin:-6px -8px;border-radius:8px;font-size:13px;font-weight:500;color:var(--accent)}
+.more:hover{background:#EEF2FD}
+.more svg{transition:transform .15s}
+.more[aria-expanded="true"] svg.chev{transform:rotate(180deg)}
+tr.detail td{border-top:0;padding-top:0;background:#FAFBFD}
+tr.detail:hover{background:transparent}
+.dbox{margin:0 0 4px 18px;display:grid;grid-template-columns:repeat(3,minmax(0,max-content));gap:6px 32px;font-size:13px;color:var(--ink2)}
+.dbox dt{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.dbox dd{margin:2px 0 0}
+.dbox .note{grid-column:1/-1;margin:8px 0 0;padding:12px 14px;border-left:3px solid var(--field);background:#fff;border-radius:0 10px 10px 0;font-size:14px;line-height:1.6;color:var(--ink2)}
+.copy{border:1px solid var(--field);background:#fff;border-radius:6px;padding:2px 8px;font-size:12px;margin-left:6px}
+code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px}
+.kc .xt{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px;color:var(--muted)}
+.rnd{font-size:11px;font-weight:600;background:rgba(0,0,0,.07);border-radius:4px;padding:0 5px;margin-left:2px}
+
 footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;padding:4px;font-size:13px;color:var(--muted)}
 .notice{padding:24px;display:none;flex-direction:column;gap:12px}
 .notice.on{display:flex}
@@ -152,7 +182,11 @@ footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;padding
   thead{display:none}
   tbody tr{padding:16px;border-top:1px solid var(--line)}
   td{border:0;padding:0!important}
-  td.jcol,td.dcol,td.scol{display:none}
+  td.jcol,td.dcol,td.ucol,td.scol{display:none}
+  tr.detail{padding-top:0;border-top:0}
+  .dbox{margin:0;grid-template-columns:1fr 1fr;gap:8px 16px}
+  .outcome{padding:18px 16px}
+  .sort{flex:1}
   .mobile-only{display:flex}
   .mline{flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px;font-size:13px;color:var(--ink2)}
   .board{padding:16px;scroll-padding:16px}
@@ -189,6 +223,12 @@ footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;padding
 <main class="wrap">
   <section class="kpis" aria-label="Key numbers" id="kpis"></section>
 
+  <section class="card outcome" id="outcome" aria-label="Where things stand">
+    <div class="prow"><h2>Where things stand</h2><span id="chaseWrap"></span></div>
+    <div class="obar" id="obar" aria-hidden="true"></div>
+    <div class="olegend" id="olegend" role="group" aria-label="Filter by status"></div>
+  </section>
+
   <section class="card notice" id="notice" aria-live="polite">
     <h2>Couldn't load papers.csv</h2>
     <p class="sub" style="margin:0">This happens when index.html is opened straight from your computer. On GitHub Pages it loads by itself. To preview locally, choose the file:</p>
@@ -209,13 +249,19 @@ footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;padding
           <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
           <input type="search" id="q" placeholder="Search title, journal or co-author" aria-label="Search papers" autocomplete="off">
         </label>
+        <select class="sort" id="sort" aria-label="Sort papers">
+          <option value="activity">Latest news first</option>
+          <option value="submitted">Newest submission first</option>
+          <option value="status">By status</option>
+          <option value="title">Title A–Z</option>
+        </select>
         <div class="chips" role="group" aria-label="Filter by theme" id="chips"></div>
       </div>
       <div class="active-filter" id="af"><span id="afText"></span><button type="button" id="afClear">Clear</button></div>
     </div>
     <div id="listView">
       <table>
-        <thead><tr><th>Paper</th><th style="width:240px">Journal</th><th style="width:130px">Submitted</th><th style="width:150px">Status</th></tr></thead>
+        <thead><tr><th>Paper</th><th style="width:210px">Journal</th><th style="width:120px">Submitted</th><th style="width:130px">Last update</th><th style="width:150px">Status</th></tr></thead>
         <tbody id="rows"></tbody>
       </table>
       <p class="empty" id="empty" hidden>No papers match. Try a co-author's surname or a journal name.</p>
@@ -248,37 +294,51 @@ footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;padding
 /* ---------- Settings ---------- */
 const OWNER = 'Arayssi';          // surname of the page owner (left out of the co-author network)
 const OWNER_INITIALS = 'MA';
-const STATUSES = ['Submitted', 'Under review', 'Revise and resubmit', 'Accepted', 'Rejected'];
-const STATUS_COLORS = {
-  'Submitted':           ['#EAEFFD', '#2B44A8', '#3B5BDB'],
-  'Under review':        ['#FBEDD8', '#7A4508', '#D98A1E'],
-  'Revise and resubmit': ['#ECE8FA', '#3F2F8A', '#6E5BC9'],
-  'Accepted':            ['#E1F3E9', '#0D5133', '#2E9E68'],
-  'Rejected':            ['#EDEDE9', '#3D3D38', '#8A8A82'],
-  'Published':           ['#E1F3E9', '#0D5133', '#2E9E68']
-};
+const NUDGE_DAYS = 60;            // flag active papers with no news for this many days
+
+// Status order. Columns always shown on the board are marked core; others appear only when used.
+const STATUS_LIST = [
+  ['Submitted',           ['#EAEFFD', '#2B44A8', '#3B5BDB'], 'active',   true],
+  ['With editor',         ['#E0F2F5', '#0B5160', '#1A8FA5'], 'active',   false],
+  ['Under review',        ['#FBEDD8', '#7A4508', '#D98A1E'], 'active',   true],
+  ['Revise and resubmit', ['#ECE8FA', '#3F2F8A', '#6E5BC9'], 'active',   false],
+  ['Accepted',            ['#E1F3E9', '#0D5133', '#2E9E68'], 'accepted', true],
+  ['Published',           ['#E1F3E9', '#0D5133', '#2E9E68'], 'accepted', false],
+  ['Rejected',            ['#FBE9E6', '#8A2A1C', '#D0563F'], 'rejected', true],
+  ['Withdrawn',           ['#F3EBE1', '#5E4426', '#A97C4A'], 'closed',   false],
+  ["Can't confirm",       ['#EDEDE9', '#3D3D38', '#8A8A82'], 'unknown',  false]
+];
+const STATUSES = STATUS_LIST.map(s => s[0]);
+const STATUS_COLORS = Object.fromEntries(STATUS_LIST.map(s => [s[0], s[1]]));
+const STATUS_GROUP = Object.fromEntries(STATUS_LIST.map(s => [s[0], s[2]]));
 const THEME_COLORS = {
   'ESG':        ['#E1F3E9', '#0D5133', '#2E9E68'],
   'Banking':    ['#E6ECFC', '#24399A', '#3B5BDB'],
   'Gender':     ['#F8E3EC', '#7A2348', '#C2477C'],
   'Energy':     ['#FBEDD8', '#7A4508', '#D98A1E'],
   'Markets':    ['#ECE8FA', '#3F2F8A', '#6E5BC9'],
-  'Governance': ['#EDEDE9', '#3D3D38', '#8A8A82']
+  'Governance': ['#EFF3DC', '#3F4D0E', '#7C9A1E']
 };
-const EXTRA = [['#E0F2F5','#0B5160','#1A8FA5'],['#FCE7E1','#7A2A14','#D2603A'],['#EFF3DC','#3F4D0E','#7C9A1E']];
+const EXTRA = [['#E0F2F5','#0B5160','#1A8FA5'],['#FCE7E1','#7A2A14','#D2603A'],['#F3EBE1','#5E4426','#A97C4A']];
 
 /* ---------- State ---------- */
 let papers = [];
-const S = { q: '', theme: 'All', author: null, view: 'list' };
+const S = { q: '', theme: 'All', author: null, status: null, chase: false, view: 'list', sort: 'activity', open: new Set() };
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const themeColor = t => {
   if (!THEME_COLORS[t]) THEME_COLORS[t] = EXTRA[Object.keys(THEME_COLORS).length % EXTRA.length];
   return THEME_COLORS[t];
 };
-const statusColor = s => STATUS_COLORS[s] || STATUS_COLORS['Submitted'];
+const statusColor = s => STATUS_COLORS[s] || ['#EDEDE9', '#3D3D38', '#8A8A82'];
+const groupOf = s => STATUS_GROUP[s] || 'active';
 
 /* ---------- CSV ---------- */
+// Excel sometimes saves CSV as Windows-1252 instead of UTF-8; read either.
+function decode(buf) {
+  try { return new TextDecoder('utf-8', { fatal: true }).decode(buf); }
+  catch { return new TextDecoder('windows-1252').decode(buf); }
+}
 function parseCSV(text) {
   const rows = []; let row = [], f = '', q = false;
   text = text.replace(/^﻿/, '');
@@ -297,23 +357,59 @@ function parseCSV(text) {
     } else f += c;
   }
   row.push(f); if (row.some(v => v.trim() !== '')) rows.push(row);
-  const head = rows.shift().map(h => h.trim().toLowerCase());
-  return rows.map(r => Object.fromEntries(head.map((h, i) => [h, (r[i] || '').trim()])));
+  // Header names are matched loosely: "Last update date", "last_update" and "Last Update" all work.
+  const ALIAS = { sunmission_id: 'submission_id', manuscript_id: 'submission_id', submission_no: 'submission_id', id_submission: 'submission_id',
+    last_update_date: 'last_update', updated: 'last_update', last_updated: 'last_update', update: 'last_update',
+    comment: 'comments', notes: 'comments', note: 'comments', editor_comments: 'comments', submission_date: 'submitted', date_submitted: 'submitted' };
+  const head = rows.shift().map(h => { const k = h.trim().toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, ''); return ALIAS[k] || k; });
+  return rows.map(r => Object.fromEntries(head.map((h, i) => [h, (r[i] || '').trim()]).filter(([h]) => h)));
+}
+
+// Accepts 2026-11-12, 12/11/2026 (day first), 12-11-26 and 12.11.2026.
+function parseDate(s) {
+  if (!s) return null;
+  let m = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/), d;
+  if (m) d = new Date(+m[1], m[2] - 1, +m[3]);
+  else if ((m = s.match(/^(\d{1,2})[\/.\-](\d{1,2})[\/.\-](\d{2,4})$/))) d = new Date(m[3].length === 2 ? 2000 + +m[3] : +m[3], m[2] - 1, +m[1]);
+  else { d = new Date(s); }
+  return isNaN(d) ? null : d;
+}
+const ago = d => d ? Math.max(0, Math.floor((Date.now() - d) / 864e5)) : null;
+
+// Map free-text statuses onto the known list; keep a revision round such as "R1" as a badge.
+function normStatus(raw) {
+  const s = (raw || '').trim(), l = s.toLowerCase();
+  const rm = s.match(/\b(?:R|round\s*|revision\s*)(\d)\b/i);
+  const round = rm ? 'R' + rm[1] : '';
+  let st;
+  if (!l) st = 'Submitted';
+  else if (/can.?t confirm|cannot confirm|unconfirm|unknown|no update|not sure/.test(l)) st = "Can't confirm";
+  else if (/withdr/.test(l)) st = 'Withdrawn';
+  else if (/reject|declin/.test(l)) st = 'Rejected';
+  else if (/publish/.test(l)) st = 'Published';
+  else if (/accept/.test(l)) st = 'Accepted';
+  else if (/resubmit|r&r|r and r|major|minor|revis/.test(l) && !/under review/.test(l)) st = 'Revise and resubmit';
+  else if (/review/.test(l)) st = 'Under review';
+  else if (/editor/.test(l)) st = 'With editor';
+  else if (/submit/.test(l)) st = 'Submitted';
+  else st = s.charAt(0).toUpperCase() + s.slice(1);
+  return { status: st, round };
 }
 
 function load(text) {
   papers = parseCSV(text).filter(p => p.title).map((p, i) => {
     const authors = (p.authors || '').split(/;|\band\b/).map(a => a.trim()).filter(Boolean);
-    let date = null, days = null;
-    if (p.submitted) {
-      const d = new Date(p.submitted + 'T00:00:00');
-      if (!isNaN(d)) { date = d; days = Math.max(0, Math.floor((Date.now() - d) / 864e5)); }
-    }
+    const date = parseDate(p.submitted), updated = parseDate(p.last_update);
+    const { status, round } = normStatus(p.status);
+    const lastAct = updated && date ? (updated > date ? updated : date) : (updated || date);
+    const idle = ago(lastAct);
     return {
-      id: p.id || i + 1, title: p.title, journal: p.journal || '', link: p.link || '',
-      theme: p.theme || 'Other', status: p.status || 'Submitted',
+      id: String(p.id || i + 1), title: p.title, journal: p.journal || '', link: p.link || '',
+      theme: p.theme || 'Other', status, round,
+      subid: (p.submission_id || '').replace(/\s+/g, ' ').trim(), comments: p.comments || '',
       authors, coauthors: authors.filter(a => a.toLowerCase() !== OWNER.toLowerCase()),
-      date, days
+      date, days: ago(date), updated, udays: ago(updated), lastAct, idle,
+      nudge: groupOf(status) === 'active' && idle != null && idle >= NUDGE_DAYS
     };
   });
   $('notice').classList.remove('on');
@@ -328,29 +424,39 @@ function counts(list, key) {
 }
 function filtered() {
   const q = S.q.toLowerCase();
-  return papers.filter(p =>
-    (!q || (p.title + ' ' + p.journal + ' ' + p.authors.join(' ')).toLowerCase().includes(q)) &&
+  const list = papers.filter(p =>
+    (!q || [p.title, p.journal, p.authors.join(' '), p.subid, p.comments, p.status].join(' ').toLowerCase().includes(q)) &&
     (S.theme === 'All' || p.theme === S.theme) &&
-    (!S.author || p.coauthors.includes(S.author)));
+    (!S.author || p.coauthors.includes(S.author)) &&
+    (!S.status || p.status === S.status) &&
+    (!S.chase || p.nudge));
+  const t = d => d ? d.getTime() : -Infinity;
+  const by = {
+    activity: (a, b) => t(b.lastAct) - t(a.lastAct),
+    submitted: (a, b) => t(b.date) - t(a.date),
+    status: (a, b) => STATUSES.indexOf(a.status) - STATUSES.indexOf(b.status) || t(b.lastAct) - t(a.lastAct),
+    title: (a, b) => a.title.localeCompare(b.title)
+  }[S.sort];
+  return list.sort((a, b) => by(a, b) || +a.id - +b.id);
 }
 const fmtDate = d => d ? d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : '—';
 const daysTxt = d => d == null ? '' : d === 0 ? 'today' : d === 1 ? '1 day ago' : d + ' days ago';
+const statusesInUse = () => STATUSES.filter(s => papers.some(p => p.status === s)).concat([...new Set(papers.map(p => p.status))].filter(s => !STATUSES.includes(s)));
 
 /* ---------- Render: parts that only change with data ---------- */
 function renderStatic() {
   const journals = counts(papers, 'journal');
   const people = counts(papers, 'coauthors');
   const themes = counts(papers, 'theme');
-  const decided = papers.filter(p => ['Accepted', 'Rejected', 'Published'].includes(p.status)).length;
-  const accepted = papers.filter(p => ['Accepted', 'Published'].includes(p.status)).length;
-  const live = papers.filter(p => !['Accepted', 'Rejected', 'Published'].includes(p.status)).length;
+  const g = k => papers.filter(p => groupOf(p.status) === k).length;
+  const accepted = g('accepted'), rejected = g('rejected'), active = g('active'), decided = accepted + rejected;
   const top = people.filter(x => x[1] === (people[0] || [])[1]).map(x => x[0]);
   const kpi = (l, v, n) => `<div class="card kpi"><span class="l">${l}</span><span class="v">${esc(v)}</span><span class="n">${n}</span></div>`;
   $('kpis').innerHTML =
-    kpi('Papers', papers.length, live === papers.length ? 'All still under consideration' : `${live} under consideration`) +
+    kpi('Papers', papers.length, `${active} active · ${decided} decided`) +
     kpi('Journals', journals.length, journals[0] && journals[0][1] > 1 ? `Most often: ${esc(short(journals[0][0]))} (${journals[0][1]})` : 'One paper each') +
     kpi('Co-authors', people.length, top.length ? `Most frequent: ${esc(top.slice(0, 2).join(' and '))}` : '') +
-    (decided ? kpi('Acceptance rate', Math.round(accepted / decided * 100) + '%', `${accepted} of ${decided} decisions`)
+    (decided ? kpi('Acceptance rate', Math.round(accepted / decided * 100) + '%', `${accepted} accepted of ${decided} decisions`)
              : kpi('Leading theme', themes[0] ? themes[0][0] : '—', themes[0] ? `${themes[0][1]} of ${papers.length} papers` : ''));
   const today = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
   $('updated').textContent = 'Publications dashboard · ' + today;
@@ -360,6 +466,22 @@ function renderStatic() {
 }
 function short(j) {
   return j.replace(/^International Journal of/, 'Intl J. of').replace(/^Journal of/, 'J. of');
+}
+
+function renderOutcome() {
+  const used = statusesInUse(), n = papers.length || 1;
+  $('obar').innerHTML = used.map(s => {
+    const c = papers.filter(p => p.status === s).length;
+    return `<span title="${esc(s)}: ${c}" style="flex:${c} 0 0;background:${statusColor(s)[2]};opacity:${!S.status || S.status === s ? 1 : .25}"></span>`;
+  }).join('');
+  $('olegend').innerHTML = used.map(s => {
+    const c = papers.filter(p => p.status === s).length;
+    return `<button type="button" class="ol" data-status="${esc(s)}" aria-pressed="${S.status === s}"><span class="dot" style="width:9px;height:9px;background:${statusColor(s)[2]}"></span>${esc(s)} <b>${c}</b></button>`;
+  }).join('');
+  const nn = papers.filter(p => p.nudge).length;
+  $('chaseWrap').innerHTML = nn ? `<button type="button" class="chase" id="chase" aria-pressed="${S.chase}">
+    <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+    ${nn} ${nn === 1 ? 'paper needs' : 'papers need'} a nudge</button>` : '<span class="sub" style="margin:0">Nothing waiting more than ' + NUDGE_DAYS + ' days</span>';
 }
 
 function renderNetwork(people) {
@@ -406,40 +528,60 @@ function renderDonut(themes) {
 }
 
 /* ---------- Render: parts that change with filters ---------- */
+const ICON_NOTE = '<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>';
+const ICON_CLOCK = '<svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
+const CHEV = '<svg class="chev" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>';
+
 function render() {
   const list = filtered();
   const themes = counts(papers, 'theme');
+  renderOutcome();
   $('count').textContent = `${list.length} of ${papers.length}`;
   $('chips').innerHTML = [['All', papers.length], ...themes].map(([t, c]) =>
     `<button type="button" class="chip" data-theme="${esc(t)}" aria-pressed="${S.theme === t}">${t === 'All' ? '' : `<span class="dot" style="width:8px;height:8px;background:${themeColor(t)[2]}"></span>`}${esc(t)} <span class="c">${c}</span></button>`).join('');
 
-  $('af').classList.toggle('on', !!S.author);
-  $('afText').textContent = S.author ? `Showing papers with ${S.author}` : '';
+  const af = [S.author && `with ${S.author}`, S.status && `marked “${S.status}”`, S.chase && `that need a nudge`].filter(Boolean);
+  $('af').classList.toggle('on', af.length > 0);
+  $('afText').textContent = af.length ? 'Showing papers ' + af.join(', ') : '';
 
   const tag = t => { const c = themeColor(t); return `<span class="tag" style="background:${c[0]};color:${c[1]}">${esc(t)}</span>`; };
-  const st = s => { const c = statusColor(s); return `<span class="status" style="background:${c[0]};color:${c[1]}"><i style="background:${c[2]}"></i>${esc(s)}</span>`; };
+  const st = p => { const c = statusColor(p.status); return `<span class="status" style="background:${c[0]};color:${c[1]}${groupOf(p.status) === 'unknown' ? ';outline:1px dashed #A9A9A2;outline-offset:-1px' : ''}"><i style="background:${c[2]}"></i>${esc(p.status)}${p.round ? `<span class="rnd">${esc(p.round)}</span>` : ''}</span>`; };
+  const flag = p => p.nudge ? `<span class="flag" title="No news since ${fmtDate(p.lastAct)}">${ICON_CLOCK}No news in ${p.idle} days</span>` : '';
   const title = p => p.link ? `<a href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.title)}</a>` : esc(p.title);
+  const hasMore = p => p.subid || p.comments;
+  const moreBtn = p => hasMore(p) ? `<button type="button" class="more" data-open="${esc(p.id)}" aria-expanded="${S.open.has(p.id)}">${p.comments ? ICON_NOTE + 'Editor note' : 'Details'}${CHEV}</button>` : '';
+  const detail = p => `<tr class="detail"><td colspan="5"><dl class="dbox">
+      ${p.subid ? `<div><dt>Submission ID</dt><dd><code>${esc(p.subid)}</code><button type="button" class="copy" data-copy="${esc(p.subid)}">Copy</button></dd></div>` : ''}
+      <div><dt>Submitted</dt><dd>${fmtDate(p.date)}</dd></div>
+      <div><dt>Last update</dt><dd>${fmtDate(p.updated)}${p.udays != null ? ` · ${daysTxt(p.udays)}` : ''}</dd></div>
+      ${p.comments ? `<blockquote class="note">${esc(p.comments)}</blockquote>` : ''}
+    </dl></td></tr>`;
 
   $('rows').innerHTML = list.map(p => `<tr>
     <td><div class="pt"><span class="bar" style="background:${themeColor(p.theme)[2]}"></span><div style="min-width:0">
       <div class="title">${title(p)}</div>
-      <div class="meta">${tag(p.theme)}<span>${esc(p.authors.join(', '))}</span></div>
-      <div class="mobile-only mline">${st(p.status)}<span>${esc(p.journal)}</span>${p.date ? `<span style="color:var(--faint)">· ${fmtDate(p.date)}</span>` : ''}</div>
+      <div class="meta">${tag(p.theme)}<span>${esc(p.authors.join(', '))}</span>${flag(p)}${moreBtn(p)}</div>
+      <div class="mobile-only mline">${st(p)}<span>${esc(p.journal)}</span>${p.lastAct ? `<span style="color:var(--faint)">· ${p.updated ? 'updated' : 'sent'} ${fmtDate(p.lastAct)}</span>` : ''}</div>
     </div></div></td>
     <td class="jcol">${esc(p.journal)}</td>
     <td class="dcol">${fmtDate(p.date)}${p.days != null ? `<span class="days">${daysTxt(p.days)}</span>` : ''}</td>
-    <td class="scol">${st(p.status)}</td></tr>`).join('');
+    <td class="ucol">${fmtDate(p.updated)}${p.udays != null ? `<span class="days">${daysTxt(p.udays)}</span>` : ''}</td>
+    <td class="scol">${st(p)}</td></tr>${S.open.has(p.id) && hasMore(p) ? detail(p) : ''}`).join('');
   $('empty').hidden = list.length > 0;
 
-  const statuses = [...STATUSES, ...new Set(papers.map(p => p.status).filter(s => !STATUSES.includes(s)))];
+  const core = STATUS_LIST.filter(s => s[3]).map(s => s[0]);
+  const used = statusesInUse();
+  const statuses = STATUSES.filter(s => core.includes(s) || used.includes(s)).concat(used.filter(s => !STATUSES.includes(s)));
   $('cols').innerHTML = statuses.map(s => {
     const items = list.filter(p => p.status === s);
     return `<div class="col"><div class="colh"><span><span class="dot" style="width:8px;height:8px;background:${statusColor(s)[2]}"></span>${esc(s)}</span><span class="n">${items.length}</span></div>
-      ${items.map(p => `<div class="kc">${tag(p.theme)}<b>${esc(p.title.split(':')[0])}</b><small>${esc(p.journal)}</small></div>`).join('') ||
+      ${items.map(p => `<div class="kc">${tag(p.theme)}<b>${esc(p.title.split(':')[0])}</b><small>${esc(p.journal)}</small>
+        ${p.round || p.nudge || p.comments || p.lastAct ? `<div class="xt">${p.round ? `<span class="rnd">${esc(p.round)}</span>` : ''}${flag(p)}${!p.nudge && p.lastAct ? `<span>${p.updated ? 'Updated' : 'Sent'} ${fmtDate(p.lastAct)}</span>` : ''}${p.comments ? `<span title="${esc(p.comments)}" style="display:inline-flex;color:var(--accent)">${ICON_NOTE}</span>` : ''}</div>` : ''}</div>`).join('') ||
         '<p class="ph">Papers appear here when their status in papers.csv is “' + esc(s) + '”</p>'}</div>`;
   }).join('');
-  $('cols').style.gridTemplateColumns = window.matchMedia('(max-width:640px)').matches ? `repeat(${statuses.length},82vw)` : `repeat(${statuses.length},minmax(220px,1fr))`;
-  $('cols').style.minWidth = window.matchMedia('(max-width:640px)').matches ? '0' : (statuses.length * 220) + 'px';
+  const mob = window.matchMedia('(max-width:640px)').matches;
+  $('cols').style.gridTemplateColumns = mob ? `repeat(${statuses.length},82vw)` : `repeat(${statuses.length},minmax(210px,1fr))`;
+  $('cols').style.minWidth = mob ? '0' : (statuses.length * 210) + 'px';
 
   $('listView').hidden = S.view !== 'list';
   $('boardView').hidden = S.view !== 'board';
@@ -451,8 +593,15 @@ function render() {
 /* ---------- Events ---------- */
 const goToList = () => { S.view = 'list'; $('papers').scrollIntoView({ behavior: 'smooth', block: 'start' }); };
 $('q').addEventListener('input', e => { S.q = e.target.value; render(); });
+$('sort').addEventListener('change', e => { S.sort = e.target.value; render(); });
 document.addEventListener('click', e => {
+  const cp = e.target.closest('[data-copy]');
+  if (cp) { navigator.clipboard && navigator.clipboard.writeText(cp.dataset.copy).then(() => { cp.textContent = 'Copied'; setTimeout(() => cp.textContent = 'Copy', 1500); }); return; }
+  const o = e.target.closest('[data-open]');
+  if (o) { const id = o.dataset.open; S.open.has(id) ? S.open.delete(id) : S.open.add(id); render(); return; }
   const v = e.target.closest('[data-view]'); if (v) { S.view = v.dataset.view; render(); return; }
+  const s = e.target.closest('[data-status]'); if (s) { S.status = S.status === s.dataset.status ? null : s.dataset.status; render(); return; }
+  if (e.target.closest('#chase')) { S.chase = !S.chase; if (S.chase) goToList(); render(); return; }
   const t = e.target.closest('[data-theme]');
   if (t) { S.theme = S.theme === t.dataset.theme && t.dataset.theme !== 'All' ? 'All' : t.dataset.theme; if (t.classList.contains('trow')) goToList(); renderDonut(counts(papers, 'theme')); render(); return; }
   const a = e.target.closest('[data-person]');
@@ -462,13 +611,13 @@ document.addEventListener('keydown', e => {
   const a = e.target.closest && e.target.closest('g[data-person]');
   if (a && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); a.dispatchEvent(new MouseEvent('click', { bubbles: true })); }
 });
-$('afClear').addEventListener('click', () => { S.author = null; renderNetwork(counts(papers, 'coauthors')); render(); });
-$('picker').addEventListener('change', e => { const f = e.target.files[0]; if (f) f.text().then(load); });
+$('afClear').addEventListener('click', () => { S.author = null; S.status = null; S.chase = false; renderNetwork(counts(papers, 'coauthors')); render(); });
+$('picker').addEventListener('change', e => { const f = e.target.files[0]; if (f) f.arrayBuffer().then(b => load(decode(b))); });
 window.matchMedia('(max-width:640px)').addEventListener('change', () => papers.length && render());
 
 fetch('papers.csv?v=' + Date.now())
-  .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
-  .then(load)
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); })
+  .then(b => load(decode(b)))
   .catch(() => $('notice').classList.add('on'));
 </script>
 </body>
