@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mahmoud Arayssi — Publications</title>
+<meta name="description" content="Research pipeline: papers under submission, co-authors and research themes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0E1630;--ink:#121726;--ink2:#3A4152;--muted:#5A6275;--faint:#8A91A3;
+  --bg:#F3F4F7;--card:#FFFFFF;--line:#ECEEF3;--field:#DCDFE7;--accent:#3B5BDB;--accent-d:#2B44A8;
+  --shadow:0 1px 2px rgba(14,22,48,.06),0 8px 24px rgba(14,22,48,.06);
+  --serif:'Instrument Serif',Georgia,serif;--sans:Inter,system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}a:hover{color:var(--accent-d)}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+
+/* Header */
+header{background:var(--navy);color:#fff;padding:28px 0 120px}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:500}
+.logo{width:40px;height:40px;border-radius:12px;background:var(--accent);display:grid;place-items:center;font-weight:600;font-size:15px}
+.navlinks{display:flex;align-items:center;gap:4px}
+.navlinks a{color:#C7CEE3;text-decoration:none;font-size:14px;padding:10px 12px;border-radius:8px}
+.navlinks a:hover{color:#fff;background:rgba(255,255,255,.06)}
+.navlinks a.cta{color:var(--navy);background:#fff;font-weight:500;padding:10px 16px;border-radius:10px;margin-left:8px}
+.hero{margin-top:44px;max-width:780px}
+.eyebrow{margin:0 0 12px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8FA0D8}
+h1{margin:0;font-family:var(--serif);font-weight:400;font-size:clamp(40px,7vw,64px);line-height:1.02;letter-spacing:-.01em}
+h1 em{color:#A9B6E6}
+.lede{margin:14px 0 0;font-size:clamp(15px,2vw,17px);line-height:1.6;color:#B7C0DA}
+
+/* Layout */
+main{margin-top:-84px;padding-bottom:56px;display:flex;flex-direction:column;gap:24px}
+.card{background:var(--card);border-radius:20px;box-shadow:var(--shadow)}
+h2{margin:0;font-family:var(--serif);font-weight:400;font-size:clamp(28px,4vw,34px);line-height:1.1}
+.sub{margin:6px 0 0;font-size:14px;color:var(--muted)}
+
+/* KPIs */
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.kpi{padding:22px 24px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.kpi .l{font-size:13px;font-weight:500;color:var(--muted)}
+.kpi .v{font-family:var(--serif);font-size:clamp(38px,5vw,52px);line-height:1}
+.kpi .n{font-size:13px;color:var(--muted)}
+
+/* Papers */
+.phead{padding:24px 24px 18px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:16px}
+.prow{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.count{font-size:14px;color:var(--muted);margin-left:10px;font-family:var(--sans)}
+.seg{display:flex;gap:4px;padding:4px;background:#F0F1F5;border-radius:12px}
+.seg button{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 14px;border:0;border-radius:9px;background:transparent;color:var(--muted);font-size:14px;font-weight:500}
+.seg button[aria-pressed="true"]{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(14,22,48,.12)}
+.tools{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.search{position:relative;flex:1 1 300px;display:flex}
+.search svg{position:absolute;left:14px;top:13px;color:var(--faint);pointer-events:none}
+.search input{flex:1;width:100%;height:44px;padding:0 14px 0 42px;border:1px solid var(--field);border-radius:12px;font:inherit;font-size:16px;color:var(--ink);background:#F7F8FB}
+.search input:focus{outline:2px solid var(--accent);outline-offset:1px;background:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:0 14px;border-radius:12px;font-size:14px;font-weight:500;border:1px solid var(--field);background:#fff;white-space:nowrap}
+.chip .c{font-size:12px;color:var(--faint)}
+.chip[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.chip[aria-pressed="true"] .c{color:#C7CEE3}
+.dot{display:inline-block;flex:none;border-radius:50%}
+.active-filter{display:none;align-items:center;gap:8px;font-size:14px;color:var(--ink2)}
+.active-filter.on{display:flex}
+.active-filter button{border:1px solid var(--field);background:#fff;border-radius:999px;padding:6px 12px;min-height:36px;font-size:13px}
+
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;padding:12px 16px;font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+th:first-child,td:first-child{padding-left:24px}th:last-child,td:last-child{padding-right:24px}
+td{padding:18px 16px;border-top:1px solid var(--line);vertical-align:top;color:var(--ink2)}
+tbody tr{transition:background .15s}tbody tr:hover{background:#F7F8FB}
+.pt{display:flex;gap:14px}
+.bar{flex:none;width:4px;border-radius:4px;align-self:stretch}
+.title{font-size:15px;font-weight:500;line-height:1.45;color:var(--ink)}
+.title a{color:inherit;text-decoration:none}.title a:hover{color:var(--accent)}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:6px;font-size:13px;color:var(--muted)}
+.tag{display:inline-block;font-size:12px;font-weight:500;padding:3px 9px;border-radius:6px;white-space:nowrap}
+.status{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;padding:5px 10px;border-radius:999px;white-space:nowrap}
+.status i{width:6px;height:6px;border-radius:50%}
+.days{display:block;font-size:12px;color:var(--faint);margin-top:2px}
+.mobile-only{display:none}
+.empty{padding:40px 24px;text-align:center;color:var(--muted);font-size:15px;margin:0}
+
+/* Board */
+.board{overflow-x:auto;padding:20px 24px 24px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.cols{display:grid;grid-template-columns:repeat(5,minmax(220px,1fr));gap:14px;min-width:1100px}
+.col{background:#F5F6F9;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:260px;scroll-snap-align:start}
+.colh{display:flex;justify-content:space-between;align-items:center;padding-bottom:4px;font-size:14px;font-weight:600}
+.colh span:first-child{display:flex;align-items:center;gap:8px}
+.colh .n{font-size:12px;font-weight:500;color:var(--muted);background:#fff;border-radius:999px;padding:2px 8px}
+.kc{background:#fff;border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;box-shadow:0 1px 2px rgba(14,22,48,.06);transition:transform .15s,box-shadow .15s}
+.kc:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(14,22,48,.08)}
+.kc .tag{align-self:flex-start}
+.kc b{font-size:14px;font-weight:500;line-height:1.4}
+.kc small{font-size:12px;color:var(--muted)}
+.ph{margin:0;font-size:13px;line-height:1.5;color:var(--muted);border:1.5px dashed #D3D7E1;border-radius:12px;padding:18px 14px;text-align:center}
+
+/* Bottom sections */
+.split{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:24px}
+.sec{padding:24px;min-width:0}
+#net svg{width:100%;height:auto;display:block;margin-top:8px}
+#net .node{cursor:pointer}
+#net .node:hover circle{stroke:#0E1630}
+.people{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.person{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 12px;border:1px solid var(--field);background:#fff;border-radius:999px;font-size:13px;font-weight:500}
+.person .c{color:var(--faint);font-weight:400}
+.person[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.person[aria-pressed="true"] .c{color:#C7CEE3}
+.donut{display:flex;justify-content:center;padding:16px 0 8px}
+.tlist{display:flex;flex-direction:column;gap:2px}
+.trow{display:flex;align-items:center;gap:12px;min-height:44px;padding:0 10px;border:0;border-radius:10px;background:transparent;font-size:14px;text-align:left}
+.trow:hover,.trow[aria-pressed="true"]{background:#F3F4F7}
+.trow .nm{flex:1;font-weight:500}.trow .c{color:var(--muted)}
+
+footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;padding:4px;font-size:13px;color:var(--muted)}
+.notice{padding:24px;display:none;flex-direction:column;gap:12px}
+.notice.on{display:flex}
+.notice label{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 16px;border-radius:10px;background:var(--navy);color:#fff;font-weight:500;align-self:flex-start;cursor:pointer}
+
+/* Tablet */
+@media (max-width:960px){
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .split{grid-template-columns:minmax(0,1fr)}
+}
+/* Phone */
+@media (max-width:640px){
+  .wrap{padding:0 16px}
+  header{padding:20px 0 96px}
+  .navlinks a:not(.cta){display:none}
+  .navlinks a.cta{margin-left:0;padding:10px 14px}
+  .hero{margin-top:32px}
+  main{margin-top:-68px;gap:16px}
+  .card{border-radius:16px}
+  .kpis{gap:10px}
+  .kpi{padding:16px}
+  .kpi .n{font-size:12px}
+  .phead{padding:18px 16px 14px}
+  .chips{flex-wrap:nowrap;overflow-x:auto;margin:0 -16px;padding:0 16px 2px;scrollbar-width:none}
+  .chips::-webkit-scrollbar{display:none}
+  .search{flex-basis:100%}
+  /* table becomes stacked cards */
+  table,tbody,tr,td{display:block;width:100%}
+  thead{display:none}
+  tbody tr{padding:16px;border-top:1px solid var(--line)}
+  td{border:0;padding:0!important}
+  td.jcol,td.dcol,td.scol{display:none}
+  .mobile-only{display:flex}
+  .mline{flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px;font-size:13px;color:var(--ink2)}
+  .board{padding:16px;scroll-padding:16px}
+  .cols{grid-template-columns:repeat(5,82vw);min-width:0}
+  .sec{padding:18px 16px}
+  #net .lbl{display:none}
+  #net svg{margin:4px auto 0;max-width:340px}
+  footer{flex-direction:column;padding:4px 4px 0}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav class="nav" aria-label="Main">
+      <div class="brand"><span class="logo" aria-hidden="true">MA</span><span>Research pipeline</span></div>
+      <div class="navlinks">
+        <a href="#papers">Papers</a>
+        <a href="#network">Co-authors</a>
+        <a href="#themes">Themes</a>
+        <a class="cta" href="papers.csv" download>Download CSV</a>
+      </div>
+    </nav>
+    <div class="hero">
+      <p class="eyebrow" id="updated">Publications dashboard</p>
+      <h1>Mahmoud Arayssi <em>publications</em></h1>
+      <p class="lede">Work in progress across ESG and sustainable finance, banking stability, gender and credit, and energy transition in MENA.</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="kpis" aria-label="Key numbers" id="kpis"></section>
+
+  <section class="card notice" id="notice" aria-live="polite">
+    <h2>Couldn't load papers.csv</h2>
+    <p class="sub" style="margin:0">This happens when index.html is opened straight from your computer. On GitHub Pages it loads by itself. To preview locally, choose the file:</p>
+    <label>Choose papers.csv<input type="file" accept=".csv,text/csv" id="picker" hidden></label>
+  </section>
+
+  <section class="card" id="papers" aria-label="Papers" style="overflow:hidden">
+    <div class="phead">
+      <div class="prow">
+        <h2>Papers<span class="count" id="count"></span></h2>
+        <div class="seg" role="group" aria-label="View">
+          <button type="button" data-view="list" aria-pressed="true"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>List</button>
+          <button type="button" data-view="board" aria-pressed="false"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="5" height="16" rx="1"/><rect x="10" y="4" width="5" height="10" rx="1"/><rect x="17" y="4" width="4" height="13" rx="1"/></svg>Board</button>
+        </div>
+      </div>
+      <div class="tools">
+        <label class="search">
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <input type="search" id="q" placeholder="Search title, journal or co-author" aria-label="Search papers" autocomplete="off">
+        </label>
+        <div class="chips" role="group" aria-label="Filter by theme" id="chips"></div>
+      </div>
+      <div class="active-filter" id="af"><span id="afText"></span><button type="button" id="afClear">Clear</button></div>
+    </div>
+    <div id="listView">
+      <table>
+        <thead><tr><th>Paper</th><th style="width:240px">Journal</th><th style="width:130px">Submitted</th><th style="width:150px">Status</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <p class="empty" id="empty" hidden>No papers match. Try a co-author's surname or a journal name.</p>
+    </div>
+    <div id="boardView" class="board" hidden><div class="cols" id="cols"></div></div>
+  </section>
+
+  <div class="split">
+    <section class="card sec" id="network" aria-label="Co-authors">
+      <h2>Co-authors</h2>
+      <p class="sub">Line weight and circle size show papers written together. Select a name to filter the list.</p>
+      <div id="net"></div>
+      <div class="people" id="people" role="group" aria-label="Filter by co-author"></div>
+    </section>
+    <section class="card sec" id="themes" aria-label="Themes">
+      <h2>Themes</h2>
+      <p class="sub">Select a theme to filter the list.</p>
+      <div class="donut" id="donut"></div>
+      <div class="tlist" id="tlist" role="group" aria-label="Filter by theme"></div>
+    </section>
+  </div>
+
+  <footer>
+    <span>Data from <a href="papers.csv">papers.csv</a>. Edit the file and refresh to update.</span>
+    <span id="foot"></span>
+  </footer>
+</main>
+
+<script>
+/* ---------- Settings ---------- */
+const OWNER = 'Arayssi';          // surname of the page owner (left out of the co-author network)
+const OWNER_INITIALS = 'MA';
+const STATUSES = ['Submitted', 'Under review', 'Revise and resubmit', 'Accepted', 'Rejected'];
+const STATUS_COLORS = {
+  'Submitted':           ['#EAEFFD', '#2B44A8', '#3B5BDB'],
+  'Under review':        ['#FBEDD8', '#7A4508', '#D98A1E'],
+  'Revise and resubmit': ['#ECE8FA', '#3F2F8A', '#6E5BC9'],
+  'Accepted':            ['#E1F3E9', '#0D5133', '#2E9E68'],
+  'Rejected':            ['#EDEDE9', '#3D3D38', '#8A8A82'],
+  'Published':           ['#E1F3E9', '#0D5133', '#2E9E68']
+};
+const THEME_COLORS = {
+  'ESG':        ['#E1F3E9', '#0D5133', '#2E9E68'],
+  'Banking':    ['#E6ECFC', '#24399A', '#3B5BDB'],
+  'Gender':     ['#F8E3EC', '#7A2348', '#C2477C'],
+  'Energy':     ['#FBEDD8', '#7A4508', '#D98A1E'],
+  'Markets':    ['#ECE8FA', '#3F2F8A', '#6E5BC9'],
+  'Governance': ['#EDEDE9', '#3D3D38', '#8A8A82']
+};
+const EXTRA = [['#E0F2F5','#0B5160','#1A8FA5'],['#FCE7E1','#7A2A14','#D2603A'],['#EFF3DC','#3F4D0E','#7C9A1E']];
+
+/* ---------- State ---------- */
+let papers = [];
+const S = { q: '', theme: 'All', author: null, view: 'list' };
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const themeColor = t => {
+  if (!THEME_COLORS[t]) THEME_COLORS[t] = EXTRA[Object.keys(THEME_COLORS).length % EXTRA.length];
+  return THEME_COLORS[t];
+};
+const statusColor = s => STATUS_COLORS[s] || STATUS_COLORS['Submitted'];
+
+/* ---------- CSV ---------- */
+function parseCSV(text) {
+  const rows = []; let row = [], f = '', q = false;
+  text = text.replace(/^﻿/, '');
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) {
+      if (c === '"') { if (text[i + 1] === '"') { f += '"'; i++; } else q = false; }
+      else f += c;
+    } else if (c === '"') q = true;
+    else if (c === ',') { row.push(f); f = ''; }
+    else if (c === '\n' || c === '\r') {
+      if (c === '\r' && text[i + 1] === '\n') i++;
+      row.push(f); f = '';
+      if (row.some(v => v.trim() !== '')) rows.push(row);
+      row = [];
+    } else f += c;
+  }
+  row.push(f); if (row.some(v => v.trim() !== '')) rows.push(row);
+  const head = rows.shift().map(h => h.trim().toLowerCase());
+  return rows.map(r => Object.fromEntries(head.map((h, i) => [h, (r[i] || '').trim()])));
+}
+
+function load(text) {
+  papers = parseCSV(text).filter(p => p.title).map((p, i) => {
+    const authors = (p.authors || '').split(/;|\band\b/).map(a => a.trim()).filter(Boolean);
+    let date = null, days = null;
+    if (p.submitted) {
+      const d = new Date(p.submitted + 'T00:00:00');
+      if (!isNaN(d)) { date = d; days = Math.max(0, Math.floor((Date.now() - d) / 864e5)); }
+    }
+    return {
+      id: p.id || i + 1, title: p.title, journal: p.journal || '', link: p.link || '',
+      theme: p.theme || 'Other', status: p.status || 'Submitted',
+      authors, coauthors: authors.filter(a => a.toLowerCase() !== OWNER.toLowerCase()),
+      date, days
+    };
+  });
+  $('notice').classList.remove('on');
+  renderStatic(); render();
+}
+
+/* ---------- Derived ---------- */
+function counts(list, key) {
+  const m = new Map();
+  list.forEach(p => [].concat(p[key]).forEach(k => m.set(k, (m.get(k) || 0) + 1)));
+  return [...m.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+}
+function filtered() {
+  const q = S.q.toLowerCase();
+  return papers.filter(p =>
+    (!q || (p.title + ' ' + p.journal + ' ' + p.authors.join(' ')).toLowerCase().includes(q)) &&
+    (S.theme === 'All' || p.theme === S.theme) &&
+    (!S.author || p.coauthors.includes(S.author)));
+}
+const fmtDate = d => d ? d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : '—';
+const daysTxt = d => d == null ? '' : d === 0 ? 'today' : d === 1 ? '1 day ago' : d + ' days ago';
+
+/* ---------- Render: parts that only change with data ---------- */
+function renderStatic() {
+  const journals = counts(papers, 'journal');
+  const people = counts(papers, 'coauthors');
+  const themes = counts(papers, 'theme');
+  const decided = papers.filter(p => ['Accepted', 'Rejected', 'Published'].includes(p.status)).length;
+  const accepted = papers.filter(p => ['Accepted', 'Published'].includes(p.status)).length;
+  const live = papers.filter(p => !['Accepted', 'Rejected', 'Published'].includes(p.status)).length;
+  const top = people.filter(x => x[1] === (people[0] || [])[1]).map(x => x[0]);
+  const kpi = (l, v, n) => `<div class="card kpi"><span class="l">${l}</span><span class="v">${esc(v)}</span><span class="n">${n}</span></div>`;
+  $('kpis').innerHTML =
+    kpi('Papers', papers.length, live === papers.length ? 'All still under consideration' : `${live} under consideration`) +
+    kpi('Journals', journals.length, journals[0] && journals[0][1] > 1 ? `Most often: ${esc(short(journals[0][0]))} (${journals[0][1]})` : 'One paper each') +
+    kpi('Co-authors', people.length, top.length ? `Most frequent: ${esc(top.slice(0, 2).join(' and '))}` : '') +
+    (decided ? kpi('Acceptance rate', Math.round(accepted / decided * 100) + '%', `${accepted} of ${decided} decisions`)
+             : kpi('Leading theme', themes[0] ? themes[0][0] : '—', themes[0] ? `${themes[0][1]} of ${papers.length} papers` : ''));
+  const today = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+  $('updated').textContent = 'Publications dashboard · ' + today;
+  $('foot').textContent = `${papers.length} papers · ${people.length} co-authors · ${journals.length} journals`;
+  renderNetwork(people);
+  renderDonut(themes);
+}
+function short(j) {
+  return j.replace(/^International Journal of/, 'Intl J. of').replace(/^Journal of/, 'J. of');
+}
+
+function renderNetwork(people) {
+  const W = 600, H = 420, cx = 300, cy = 210, R = 160;
+  const max = people.length ? people[0][1] : 1;
+  const n = people.length;
+  let lines = '', nodes = '', labels = '';
+  people.forEach(([name, c], i) => {
+    const a = -Math.PI / 2 + i * 2 * Math.PI / n;
+    const x = cx + R * 1.15 * Math.cos(a), y = cy + R * Math.sin(a);
+    const r = 6 + 10 * (c / max);
+    const fill = c === max ? '#3B5BDB' : c > 1 ? '#8EA2E8' : '#C9D3F3';
+    const lx = cx + (R * 1.15 + r + 8) * Math.cos(a), ly = cy + (R + r + 8) * Math.sin(a);
+    const anchor = Math.abs(Math.cos(a)) < 0.2 ? 'middle' : Math.cos(a) > 0 ? 'start' : 'end';
+    const dy = Math.sin(a) < -0.9 ? -2 : Math.sin(a) > 0.9 ? 10 : 4;
+    const sel = S.author === name;
+    lines += `<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="${sel ? '#0E1630' : c === max ? '#9FB0EA' : '#D9DEEA'}" stroke-width="${(1 + 1.2 * c).toFixed(1)}" stroke-linecap="round"/>`;
+    nodes += `<g class="node" data-person="${esc(name)}" role="button" tabindex="0" aria-label="${esc(name)}, ${c} shared papers"><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(r + 10).toFixed(1)}" fill="transparent"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}" fill="${sel ? '#0E1630' : fill}" stroke="#fff" stroke-width="3"/></g>`;
+    labels += `<text x="${lx.toFixed(1)}" y="${(ly + dy).toFixed(1)}" text-anchor="${anchor}" font-size="13" font-weight="${c > 2 || sel ? 600 : 400}" fill="${c > 2 || sel ? '#121726' : '#3A4152'}">${esc(name)}${c > 1 ? ' · ' + c : ''}</text>`;
+  });
+  $('net').innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Co-author network with ${n} co-authors">
+    <circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="#EEF0F5" stroke-dasharray="3 5"/>
+    ${lines}${nodes}
+    <circle cx="${cx}" cy="${cy}" r="38" fill="#0E1630"/><text x="${cx}" y="${cy + 6}" text-anchor="middle" font-size="17" font-weight="600" fill="#fff">${OWNER_INITIALS}</text>
+    <g class="lbl" font-family="Inter, sans-serif">${labels}</g></svg>`;
+  $('people').innerHTML = people.map(([name, c]) =>
+    `<button type="button" class="person" data-person="${esc(name)}" aria-pressed="${S.author === name}">${esc(name)} <span class="c">${c}</span></button>`).join('');
+}
+
+function renderDonut(themes) {
+  const r = 70, C = 2 * Math.PI * r, total = papers.length || 1, gap = 3;
+  let off = 0, arcs = '';
+  themes.forEach(([t, c]) => {
+    const len = C * c / total;
+    arcs += `<circle cx="100" cy="100" r="${r}" fill="none" stroke="${themeColor(t)[2]}" stroke-width="26" stroke-dasharray="${Math.max(0, len - gap).toFixed(1)} ${C.toFixed(1)}" stroke-dashoffset="${(-off).toFixed(1)}" opacity="${S.theme === 'All' || S.theme === t ? 1 : .25}"/>`;
+    off += len;
+  });
+  $('donut').innerHTML = `<svg viewBox="0 0 200 200" width="200" height="200" role="img" aria-label="${themes.map(([t, c]) => t + ' ' + c).join(', ')}">
+    <g transform="rotate(-90 100 100)">${arcs}</g>
+    <text x="100" y="106" text-anchor="middle" font-family="Instrument Serif, Georgia, serif" font-size="46" fill="#121726">${papers.length}</text>
+    <text x="100" y="128" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#5A6275">papers</text></svg>`;
+  $('tlist').innerHTML = themes.map(([t, c]) =>
+    `<button type="button" class="trow" data-theme="${esc(t)}" aria-pressed="${S.theme === t}"><span class="dot" style="width:12px;height:12px;background:${themeColor(t)[2]}"></span><span class="nm">${esc(t)}</span><span class="c">${c}</span></button>`).join('');
+}
+
+/* ---------- Render: parts that change with filters ---------- */
+function render() {
+  const list = filtered();
+  const themes = counts(papers, 'theme');
+  $('count').textContent = `${list.length} of ${papers.length}`;
+  $('chips').innerHTML = [['All', papers.length], ...themes].map(([t, c]) =>
+    `<button type="button" class="chip" data-theme="${esc(t)}" aria-pressed="${S.theme === t}">${t === 'All' ? '' : `<span class="dot" style="width:8px;height:8px;background:${themeColor(t)[2]}"></span>`}${esc(t)} <span class="c">${c}</span></button>`).join('');
+
+  $('af').classList.toggle('on', !!S.author);
+  $('afText').textContent = S.author ? `Showing papers with ${S.author}` : '';
+
+  const tag = t => { const c = themeColor(t); return `<span class="tag" style="background:${c[0]};color:${c[1]}">${esc(t)}</span>`; };
+  const st = s => { const c = statusColor(s); return `<span class="status" style="background:${c[0]};color:${c[1]}"><i style="background:${c[2]}"></i>${esc(s)}</span>`; };
+  const title = p => p.link ? `<a href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.title)}</a>` : esc(p.title);
+
+  $('rows').innerHTML = list.map(p => `<tr>
+    <td><div class="pt"><span class="bar" style="background:${themeColor(p.theme)[2]}"></span><div style="min-width:0">
+      <div class="title">${title(p)}</div>
+      <div class="meta">${tag(p.theme)}<span>${esc(p.authors.join(', '))}</span></div>
+      <div class="mobile-only mline">${st(p.status)}<span>${esc(p.journal)}</span>${p.date ? `<span style="color:var(--faint)">· ${fmtDate(p.date)}</span>` : ''}</div>
+    </div></div></td>
+    <td class="jcol">${esc(p.journal)}</td>
+    <td class="dcol">${fmtDate(p.date)}${p.days != null ? `<span class="days">${daysTxt(p.days)}</span>` : ''}</td>
+    <td class="scol">${st(p.status)}</td></tr>`).join('');
+  $('empty').hidden = list.length > 0;
+
+  const statuses = [...STATUSES, ...new Set(papers.map(p => p.status).filter(s => !STATUSES.includes(s)))];
+  $('cols').innerHTML = statuses.map(s => {
+    const items = list.filter(p => p.status === s);
+    return `<div class="col"><div class="colh"><span><span class="dot" style="width:8px;height:8px;background:${statusColor(s)[2]}"></span>${esc(s)}</span><span class="n">${items.length}</span></div>
+      ${items.map(p => `<div class="kc">${tag(p.theme)}<b>${esc(p.title.split(':')[0])}</b><small>${esc(p.journal)}</small></div>`).join('') ||
+        '<p class="ph">Papers appear here when their status in papers.csv is “' + esc(s) + '”</p>'}</div>`;
+  }).join('');
+  $('cols').style.gridTemplateColumns = window.matchMedia('(max-width:640px)').matches ? `repeat(${statuses.length},82vw)` : `repeat(${statuses.length},minmax(220px,1fr))`;
+  $('cols').style.minWidth = window.matchMedia('(max-width:640px)').matches ? '0' : (statuses.length * 220) + 'px';
+
+  $('listView').hidden = S.view !== 'list';
+  $('boardView').hidden = S.view !== 'board';
+  document.querySelectorAll('.seg button').forEach(b => b.setAttribute('aria-pressed', b.dataset.view === S.view));
+  document.querySelectorAll('.person').forEach(b => b.setAttribute('aria-pressed', b.dataset.person === S.author));
+  document.querySelectorAll('.trow').forEach(b => b.setAttribute('aria-pressed', b.dataset.theme === S.theme));
+}
+
+/* ---------- Events ---------- */
+const goToList = () => { S.view = 'list'; $('papers').scrollIntoView({ behavior: 'smooth', block: 'start' }); };
+$('q').addEventListener('input', e => { S.q = e.target.value; render(); });
+document.addEventListener('click', e => {
+  const v = e.target.closest('[data-view]'); if (v) { S.view = v.dataset.view; render(); return; }
+  const t = e.target.closest('[data-theme]');
+  if (t) { S.theme = S.theme === t.dataset.theme && t.dataset.theme !== 'All' ? 'All' : t.dataset.theme; if (t.classList.contains('trow')) goToList(); renderDonut(counts(papers, 'theme')); render(); return; }
+  const a = e.target.closest('[data-person]');
+  if (a) { S.author = S.author === a.dataset.person ? null : a.dataset.person; renderNetwork(counts(papers, 'coauthors')); goToList(); render(); }
+});
+document.addEventListener('keydown', e => {
+  const a = e.target.closest && e.target.closest('g[data-person]');
+  if (a && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); a.dispatchEvent(new MouseEvent('click', { bubbles: true })); }
+});
+$('afClear').addEventListener('click', () => { S.author = null; renderNetwork(counts(papers, 'coauthors')); render(); });
+$('picker').addEventListener('change', e => { const f = e.target.files[0]; if (f) f.text().then(load); });
+window.matchMedia('(max-width:640px)').addEventListener('change', () => papers.length && render());
+
+fetch('papers.csv?v=' + Date.now())
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
+  .then(load)
+  .catch(() => $('notice').classList.add('on'));
+</script>
+</body>
+</html>
